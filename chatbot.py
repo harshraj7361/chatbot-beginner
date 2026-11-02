@@ -1,11 +1,11 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, AIMessage
 from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatGoogleGenerativeAI(
-    model = "gemini-3.8-flash",
+llm = ChatOllama(
+    model = "llama3.2",
     temperature = 0.5
     
 )
@@ -20,9 +20,9 @@ while True:
     chat_history.append(HumanMessage(content=user_input))
 
 
-    result=llm.invoke(user_input)
+    result=llm.invoke(chat_history)
     chat_history.append(AIMessage(content=result.content))
 
-    print("AI: ",result.content[0]["text"])
+    print("AI: ",result.content)
 
 print(chat_history)
